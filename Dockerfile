@@ -34,7 +34,7 @@ RUN chown -R laraveluser:laraveluser /var/www/html/storage /var/www/html/bootstr
 
 RUN mkdir -p /var/lib/nginx/body /var/lib/nginx/proxy /var/lib/nginx/fastcgi /var/lib/nginx/uwsgi /var/lib/nginx/scgi /var/tmp/nginx /var/log/nginx && \
     touch /var/log/nginx/error.log && \
-    chown -R laraveluser:laraveluser /var/lib/nginx /var/tmp/nginx /var/log/nginx && \
+    chown -R laraveluser:laraveluser /var/lib/nginx /var/tmp/nginx /var/log/nginx /run/nginx && \
     chmod a+w /var/log/nginx/error.log
 
 COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
