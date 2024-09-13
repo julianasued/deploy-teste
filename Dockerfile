@@ -21,7 +21,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 RUN mkdir -p /var/lib/nginx/body /var/lib/nginx/proxy /var/lib/nginx/fastcgi /var/lib/nginx/uwsgi /var/lib/nginx/scgi /var/tmp/nginx && \
     chown -R www-data:www-data /var/lib/nginx && \
-    chown -R www-data:www-data /var/tmp/nginx
+    chown -R www-data:www-data /var/tmp/nginx && \
+    chown -R www-data:www-data /var/log/nginx
 
 COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
