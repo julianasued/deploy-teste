@@ -19,7 +19,7 @@ RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN mkdir -p /var/lib/nginx/body /var/lib/nginx/proxy /var/tmp/nginx && \
+RUN mkdir -p /var/lib/nginx/body /var/lib/nginx/proxy /var/lib/nginx/fastcgi /var/tmp/nginx && \
     chown -R www-data:www-data /var/lib/nginx && \
     chown -R www-data:www-data /var/tmp/nginx
 
@@ -36,11 +36,11 @@ RUN chown -R laraveluser:laraveluser /var/www/html/storage /var/www/html/bootstr
 
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
+COPY ./start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
 USER laraveluser
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
-# EXPOSE 9000
-
-# CMD ["php-fpm"]
+CMD ["/usr/local/bin/start.sh"]
