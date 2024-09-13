@@ -19,9 +19,11 @@ RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+RUN mkdir -p /var/lib/nginx/body /var/lib/nginx/proxy && \
+    chown -R www-data:www-data /var/lib/nginx && \
+    chown -R www-data:www-data /var/tmp/nginx
 
-RUN mkdir -p /var/lib/nginx/body && chown -R www-data:www-data /var/lib/nginx
+COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 RUN groupadd -g 1000 laraveluser && \
     useradd -u 1000 -g laraveluser -m laraveluser
