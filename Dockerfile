@@ -32,6 +32,10 @@ RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 USER laraveluser
 
-EXPOSE 9000
+EXPOSE 80
 
-CMD ["php-fpm"]
+CMD ["nginx", "-g", "daemon off;"]
+
+#EXPOSE 9000
+
+#CMD ["php-fpm"]
