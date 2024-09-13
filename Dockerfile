@@ -32,7 +32,7 @@ COPY . .
 RUN chown -R laraveluser:laraveluser /var/www/html/storage /var/www/html/bootstrap/cache && \
     chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-RUN mkdir -p /var/lib/nginx/body /var/lib/nginx/proxy /var/lib/nginx/fastcgi /var/lib/nginx/uwsgi /var/lib/nginx/scgi /var/tmp/nginx /var/log/nginx && \
+RUN mkdir -p /run/nginx /var/lib/nginx/body /var/lib/nginx/proxy /var/lib/nginx/fastcgi /var/lib/nginx/uwsgi /var/lib/nginx/scgi /var/tmp/nginx /var/log/nginx && \
     touch /var/log/nginx/error.log && \
     chown -R laraveluser:laraveluser /var/lib/nginx /var/tmp/nginx /var/log/nginx /run/nginx && \
     chmod a+w /var/log/nginx/error.log
