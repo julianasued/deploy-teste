@@ -19,6 +19,10 @@ RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+
+RUN mkdir -p /var/lib/nginx/body && chown -R www-data:www-data /var/lib/nginx
+
 RUN groupadd -g 1000 laraveluser && \
     useradd -u 1000 -g laraveluser -m laraveluser
 
@@ -35,7 +39,6 @@ USER laraveluser
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
+# EXPOSE 9000
 
-#EXPOSE 9000
-
-#CMD ["php-fpm"]
+# CMD ["php-fpm"]
