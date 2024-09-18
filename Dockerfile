@@ -32,13 +32,12 @@ COPY . .
 RUN chown -R laraveluser:laraveluser /var/www/html/storage /var/www/html/bootstrap/cache && \
     chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
+RUN mkdir -p /var/www/html/logs /run /var/lib/nginx/body /var/lib/nginx/proxy /var/lib/nginx/fastcgi /var/lib/nginx/uwsgi /var/lib/nginx/scgi /var/tmp/nginx /var/log/nginx && \
+    touch /var/www/html/logs/access.log /var/log/nginx/error.log && \
+    chown -R laraveluser:laraveluser /var/lib/nginx /var/tmp/nginx /var/log/nginx /run /var/www/html/logs && \
+    chmod -R 775 /var/www/html/logs /var/log/nginx /run
+
 COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
-
-RUN mkdir -p /run /var/lib/nginx/body /var/lib/nginx/proxy /var/lib/nginx/fastcgi /var/lib/nginx/uwsgi /var/lib/nginx/scgi /var/tmp/nginx /var/log/nginx && \
-    touch /var/log/nginx/error.log && \
-    chown -R laraveluser:laraveluser /var/lib/nginx /var/tmp/nginx /var/log/nginx /run && \
-    chmod a+w /var/log/nginx/error.log
-
 
 COPY ./start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
