@@ -46,6 +46,9 @@ RUN mkdir -p /var/www/html/logs /run /var/lib/nginx/body /var/lib/nginx/proxy /v
 # Copie a configuração do Nginx
 COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 
+COPY ./start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
 # Defina o usuário 'laraveluser' para rodar os comandos
 USER laraveluser
 
@@ -53,8 +56,8 @@ USER laraveluser
 EXPOSE 80 9000  
 
 # Copie o script de inicialização
-COPY ./start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
+# COPY ./start.sh /usr/local/bin/start.sh
+# RUN chmod +x /usr/local/bin/start.sh
 
 # Comando de inicialização
 CMD ["/usr/local/bin/start.sh"]
